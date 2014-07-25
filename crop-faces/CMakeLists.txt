@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project(prepare)
+find_package(OpenCV REQUIRED)
+add_executable(prepare preparePhoto.cpp)
+target_link_libraries(prepare ${OpenCV_LIBS})

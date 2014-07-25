@@ -1,0 +1,10 @@
+bin/*
+faces/*
+crop-faces/CMakeCache.txt
+crop-faces/CMakeFiles
+crop-faces/cmake_install.cmake
+crop-faces/csv.txt
+crop-faces/Makefile
+crop-faces/pics/*
+crop-faces/prepare
+obj/*
