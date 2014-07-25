@@ -1,4 +1,4 @@
-bin/*
+bin/kill-goggles
 faces/*
 crop-faces/CMakeCache.txt
 crop-faces/CMakeFiles
