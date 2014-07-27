@@ -1,27 +1,31 @@
-#include "testApp.h"
+#include "KillGoggles.h"
 
 using namespace ofxCv;
 using namespace cv;
 
-void testApp::setup() {
-	ofSetVerticalSync(true);
-	ofSetFrameRate(15);
-	finder.setup("haarcascade_frontalface_alt2.xml");
-	finder.setPreset(ObjectFinder::Fast);
-	finder.getTracker().setSmoothingRate(.3);
-        cam.setup(640, 480,false);
-	sunglasses.loadImage("/root/sunglasses.png");
-	ofEnableAlphaBlending();
+KillGoggles::KillGoggles(char* faces_root)
+    : target(faces_root) {}
+
+void KillGoggles::setup() {
+    ofSetVerticalSync(true);
+    ofSetFrameRate(15);
+    finder.setup("haarcascade_frontalface_alt2.xml");
+    finder.setPreset(ObjectFinder::Fast);
+    finder.getTracker().setSmoothingRate(.3);
+    cam.setup(640, 480, false);
+    sunglasses.loadImage("/root/sunglasses.png");
+    ofEnableAlphaBlending();
+    target.setup();
 }
 
-void testApp::update() {
+void KillGoggles::update() {
     frame = cam.grab();
     if(!frame.empty()) {
         finder.update(frame);
-	}
+    }
 }
 
-void testApp::draw() {
+void KillGoggles::draw() {
     if(!frame.empty()){
         drawMat(frame, 0, 0);
 
