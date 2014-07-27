@@ -1,11 +1,23 @@
 #include "FaceRec.h"
 
+using namespace ofxCv;
+using namespace cv;
+
 FaceRec::FaceRec(char* root)
     : _root(root) {}
 
 void FaceRec::setup() {
+    _finder.setup("haarcascade_frontalface_alt2.xml");
+    _finder.setPreset(ObjectFinder::Fast);
+    _finder.getTracker().setSmoothingRate(.3);
+    
     readFaces(_root);
 }
+
+void FaceRec::update(cv::Mat frame) {
+    _finder.update(frame);
+}
+
 
 int FaceRec::readFaces(char* root) {
     

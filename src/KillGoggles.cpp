@@ -9,9 +9,6 @@ KillGoggles::KillGoggles(char* faces_root)
 void KillGoggles::setup() {
     ofSetVerticalSync(true);
     ofSetFrameRate(15);
-    finder.setup("haarcascade_frontalface_alt2.xml");
-    finder.setPreset(ObjectFinder::Fast);
-    finder.getTracker().setSmoothingRate(.3);
     cam.setup(640, 480, false);
     sunglasses.loadImage("/root/sunglasses.png");
     ofEnableAlphaBlending();
@@ -21,7 +18,7 @@ void KillGoggles::setup() {
 void KillGoggles::update() {
     frame = cam.grab();
     if(!frame.empty()) {
-        finder.update(frame);
+        target.update(frame);
     }
 }
 
@@ -29,6 +26,8 @@ void KillGoggles::draw() {
     if(!frame.empty()){
         drawMat(frame, 0, 0);
 
+        ofxCv::ObjectFinder finder = target.getFinder();
+        
         for(int i = 0; i < finder.size(); i++) {
             ofRectangle object = finder.getObjectSmoothed(i);
             sunglasses.setAnchorPercent(.5, .5);
