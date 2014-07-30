@@ -24,24 +24,44 @@ void KillGoggles::update() {
 
 void KillGoggles::draw() {
     if(!frame.empty()){
+        int _prediction_confidence = 4500;
+        
         drawMat(frame, 0, 0);
 
-        ofxCv::ObjectFinder finder = target.getFinder();
+        ofPushStyle();
+        ofNoFill();
         
-        for(int i = 0; i < finder.size(); i++) {
-            ofRectangle object = finder.getObjectSmoothed(i);
-            sunglasses.setAnchorPercent(.5, .5);
-            float scaleAmount = .85 * object.width / sunglasses.getWidth();
-            ofPushMatrix();
-            ofTranslate(object.x + object.width / 2., object.y + object.height * .42);
-            ofScale(scaleAmount, scaleAmount);
-            sunglasses.draw(0, 0);
-            ofPopMatrix();
-            ofPushMatrix();
-            ofTranslate(object.getPosition());
-            ofDrawBitmapStringHighlight(ofToString(finder.getLabel(i)), 0, 0);
-            ofLine(ofVec2f(), toOf(finder.getVelocity(i)) * 10);
-            ofPopMatrix();
+        for(int i = 0; i < target.size(); i++) {
+            Face face = target.getFace(i);
+
+            ofRect(face._rect);
+            
         }
+        ofPopStyle();
     }
 }
+
+
+
+
+// create a rectangle around the face      
+//rectangle(frame, face_i, CV_RGB(255, 255 ,255), 1);
+
+// if good prediction : > threshold 
+//if (predicted_confidence > _prediction_confidence) {
+// sprintf(sTmp,"+ prediction ok = %s (%d) confiance = (%d)",people[prediction].c_str(),prediction,(int)predicted_confidence);
+	
+// display name of the guy on the picture
+//    string box_text;
+//    box_text = "Id=" + _names[prediction];
+            
+//    int pos_x = std::max(face_i.tl().x - 10, 0);
+//    int pos_y = std::max(face_i.tl().y - 10, 0);			   
+//    putText(gray, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(255,255,255), 1.0);        		
+//} else {		
+// trace is commented to speed up
+//sprintf(sTmp,"- prediction too low = %s (%d) confiance = (%d)",people[prediction].c_str(),prediction,(int)predicted_confidence);
+//trace((string)(sTmp));
+//}
+
+

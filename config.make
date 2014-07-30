@@ -17,8 +17,7 @@ USER_CFLAGS =
 # for example libraries like:
 # USER_LDFLAGS = libs/libawesomelib.a
 
-USER_LDFLAGS =
-
+USER_LDFLAGS = -lpng -ljpeg -ltiff -lIlmImf -lHalf -ljasper # /home/zeno/pi/pi-root/opt/libfacerec/libopencv_facerec.a
 
 EXCLUDE_FROM_SOURCE="bin,.xcodeproj,obj"
 
